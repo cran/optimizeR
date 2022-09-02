@@ -1,6 +1,6 @@
-a77875af413995a5a3fa5770360d0393 *DESCRIPTION
+896f617a4b96d1416558b82c9c95f98c *DESCRIPTION
 6b529ee568afe7677d84df40f8256367 *NAMESPACE
-b1859491836a53bef4a5c4abb743249c *NEWS.md
+b5d4ca6ed8dbaa62020b16e34de45e5c *NEWS.md
 1d736e3f2f08e3149afe76d9cf16c365 *R/functions.R
 08243c91339a18fd2a7a5ef24d61c930 *R/optimizer.R
 581022eeb779213928bac7a63cc593aa *R/package.R
@@ -29,4 +29,4 @@ cfa942a13bcdec1763fbc20fe660783d *man/validate_optimizer.Rd
 944443855e46bc362c6c4085bbd89697 *tests/testthat.R
 fffac2b821417b17347749db6a2e5069 *tests/testthat/test-functions.R
 09526bdb12c9ec6dc268100497b8bb97 *tests/testthat/test-optimizer.R
-d197e3d6e2dee5150c7a6e18ff2a0a74 *tests/testthat/test-utils.R
+8db7610c6d0c07e15ecb0c486464169d *tests/testthat/test-utils.R
