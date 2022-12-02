@@ -27,8 +27,3 @@ optimizeR_warn <- function(event, debug = character(), call. = FALSE, immediate.
   msg <- paste(event, debug, sep = "\n", collapse = "")
   warning(msg, call. = call., immediate. = immediate.)
 }
-
-## usethis namespace: start
-#' @importFrom lifecycle deprecated
-## usethis namespace: end
-NULL
