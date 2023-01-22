@@ -1,12 +1,14 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# {optimizeR}
+# optimizeR
 
 <!-- badges: start -->
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/optimizeR)](https://CRAN.R-project.org/package=optimizeR)
+[![metacran
+downloads](https://cranlogs.r-pkg.org/badges/last-month/optimizeR)](https://cran.r-project.org/package=optimizeR)
 [![R-CMD-check](https://github.com/loelschlaeger/optimizeR/workflows/R-CMD-check/badge.svg)](https://github.com/loelschlaeger/optimizeR/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/loelschlaeger/optimizeR/branch/master/graph/badge.svg)](https://app.codecov.io/gh/loelschlaeger/optimizeR?branch=master)
@@ -33,7 +35,7 @@ compare different optimizers.
 
 ## Our solution
 
-Simply specify optimizers with `set_optimizer()` and execute them with
+Simply specify optimizers with `define_optimizer()` and apply them with
 `apply_optimizer()`. The outputs are in a standardized format.
 
 For demonstration, say we want to minimize the [Ackley
@@ -51,9 +53,9 @@ f_ackley <- function(x) {
 `pracma::nelder_mead()`. The first two are already pre-specified…
 
 ``` r
-# library("optimizeR")
-devtools::load_all()
+library("optimizeR")
 #> ℹ Loading optimizeR
+#> Thanks for using {optimizeR} 0.3.0.
 optimizer_nlm()
 #> <optimizer 'stats::nlm'>
 optimizer_optim()
@@ -64,56 +66,57 @@ optimizer_optim()
 constructor:
 
 ``` r
-optimizer_nelder_mead <- set_optimizer(
-    opt_fun = pracma::nelder_mead,
-    f = "fn",
-    p = "x0",
-    v = "fmin",
-    z = "xmin"
+optimizer_nelder_mead <- define_optimizer(
+    optimizer = pracma::nelder_mead,
+    objective = "fn",
+    initial = "x0",
+    value = "fmin",
+    parameter = "xmin"
   )
 ```
 
-Now we optimize (with initial parameter vector `p = c(-1,1)`):
+Now we optimize (with initial parameter vector `initial = c(-1,1)`):
 
 ``` r
 res <- lapply(
   list(optimizer_nlm(), optimizer_optim(), optimizer_nelder_mead),
   apply_optimizer, 
-  f = f_ackley, 
-  p = c(-1,1)
+  objective = f_ackley, 
+  initial = c(-1,1)
 )
 names(res) <- c("nlm", "optim", "nelder_mead")
 ```
 
-In the optimization results, `v` and `z` consistently denote the optimal
-function values and the optimal parameters, while optimizer-specific
-outputs are preserved:
+In the optimization results, `value` and `parameter` consistently denote
+the optimal function values and the optimal parameters, while
+optimizer-specific outputs are preserved. The optimization time in
+seconds, `seconds` is automatically added.
 
 ``` r
 str(res)
 #> List of 3
-#>  $ nlm        :List of 6
-#>   ..$ v         : num 1.66e-06
-#>   ..$ z         : num [1:2] -2.91e-07 5.08e-07
-#>   ..$ time      : 'difftime' num 0.000730991363525391
-#>   .. ..- attr(*, "units")= chr "secs"
+#>  $ nlm        :List of 7
+#>   ..$ value     : num 1.66e-06
+#>   ..$ parameter : num [1:2] -2.91e-07 5.08e-07
+#>   ..$ seconds   : num 0.0012
+#>   ..$ initial   : num [1:2] -1 1
 #>   ..$ gradient  : num [1:2] -0.00824 0.0144
 #>   ..$ code      : int 2
 #>   ..$ iterations: int 33
-#>  $ optim      :List of 6
-#>   ..$ v          : num 3.57
-#>   ..$ z          : num [1:2] -0.969 0.969
-#>   ..$ time       : 'difftime' num 0.000398159027099609
-#>   .. ..- attr(*, "units")= chr "secs"
+#>  $ optim      :List of 7
+#>   ..$ value      : num 3.57
+#>   ..$ parameter  : num [1:2] -0.969 0.969
+#>   ..$ seconds    : num 0.000548
+#>   ..$ initial    : num [1:2] -1 1
 #>   ..$ counts     : Named int [1:2] 45 NA
 #>   .. ..- attr(*, "names")= chr [1:2] "function" "gradient"
 #>   ..$ convergence: int 0
 #>   ..$ message    : NULL
-#>  $ nelder_mead:List of 6
-#>   ..$ v          : num 0
-#>   ..$ z          : num [1:2] 0 0
-#>   ..$ time       : 'difftime' num 0.00134801864624023
-#>   .. ..- attr(*, "units")= chr "secs"
+#>  $ nelder_mead:List of 7
+#>   ..$ value      : num 0
+#>   ..$ parameter  : num [1:2] 0 0
+#>   ..$ seconds    : num 0.00246
+#>   ..$ initial    : num [1:2] -1 1
 #>   ..$ count      : num 111
 #>   ..$ convergence: num 0
 #>   ..$ info       :List of 2
@@ -121,8 +124,8 @@ str(res)
 #>   .. ..$ restarts: num 0
 ```
 
-P.S. Surprised that the `optim()` result is different from the others?
-It seems that this optimizer got stuck in a local minimum.
+P.S. Surprised that the `optim` result differs from the others? It seems
+that this optimizer got stuck in a local minimum.
 
 ## Installation
 
