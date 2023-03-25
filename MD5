@@ -1,13 +1,14 @@
-6a817a9114f3d3749e23fc8aba6b3cf2 *DESCRIPTION
+2972a5e4d8e07c63cd2d34c9f4b693fd *DESCRIPTION
 0670fc73771b09054dfb23a4d9da24b8 *NAMESPACE
-16f1e3eaa4a7828c6ff5e415fc41e9f3 *NEWS.md
+36bc7ec522a4080fa6c98c8a7cc1308a *NEWS.md
 af48664013693fd8c94bcc0e5f0031d5 *R/optimizer.R
 f83efb8b416c2510d24d12762bc252f9 *R/package.R
 22bc3a20df1f15237ddb51beae1b872f *R/utils.R
-d4a96ca9e9ba308c89054f4ff079df0d *README.md
+88c1be4c0b21f3591fe8fed3c8f870ec *README.md
 bac65ac1f2c2502ff3be3ff7d99eba8e *man/apply_optimizer.Rd
 3d89c891abe2c20bd7fcfddc623e2322 *man/define_optimizer.Rd
 cf652ee1be5069f78a43db613e0c764f *man/do.call_timed.Rd
+2868c023452f6fc5471dd1daabe97c07 *man/figures/logo.png
 87bb46c6d84fcd875d4ea76fd98e1544 *man/is_number.Rd
 75cc74e09a7fbc9b4ea0f5710c113509 *man/new_optimizer.Rd
 86bc26a0adea124f91988c89a0aa5922 *man/optimizeR.Rd
