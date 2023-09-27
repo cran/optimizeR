@@ -9,28 +9,28 @@ apply_optimizer(optimizer = optimizer_nlm(), objective, initial, ...)
 \arguments{
 \item{optimizer}{An object of class \code{optimizer}.}
 
-\item{objective}{The \code{function} to be optimized, returning a single \code{numeric}.
-Its first argument must be a \code{numeric} vector of the length of
+\item{objective}{A \code{function} to be optimized, returning a single \code{numeric}.
+Its first argument must be a \code{numeric} vector of the same length as
 \code{initial}, followed by any other arguments specified by the \code{...}
 argument.}
 
 \item{initial}{A \code{numeric} vector with starting parameter values for the optimization.}
 
-\item{...}{Additional arguments to be passed to \code{objective}.}
+\item{...}{Additional arguments to be passed to \code{optimizer}.}
 }
 \value{
-A named \code{list}, containing at least three elements:
+A named \code{list}, containing at least these four elements:
 \describe{
-\item{value}{A \code{numeric}, the value of the estimated optimum of
+\item{\code{value}}{A \code{numeric}, the value of the estimated optimum of
 \code{objective}.}
-\item{parameter}{A \code{numeric} vector, the parameter vector where the
-optimum of \code{objective} is obtained.}
-\code{seconds}{A \code{numeric}, the total optimization time in seconds.}
-\code{initial}{A \code{numeric}, the initial parameter values.}
+\item{\code{parameter}}{A \code{numeric} vector, the parameter vector where
+the optimum of \code{objective} is obtained.}
+\item{\code{seconds}}{A \code{numeric}, the total optimization time in
+seconds.}
+\item{\code{initial}}{A \code{numeric}, the initial parameter values.}
 }
-Additional output elements of the optimizer (if not excluded by the
-\code{output_ignore} element via \code{\link{define_optimizer}}) are
-appended.
+Appended are additional output elements of the optimizer (if not excluded by
+the \code{output_ignore} element via \code{\link{define_optimizer}}).
 }
 \description{
 This function performs numerical optimization using an \code{optimizer}
@@ -40,5 +40,5 @@ object.
 apply_optimizer(optimizer_nlm(), function(x) x^4 + 3*x - 5, 2)
 }
 \seealso{
-\code{\link[=define_optimizer]{define_optimizer()}} for specifying an \code{optimizer} object.
+\code{\link[=define_optimizer]{define_optimizer()}} for creating an \code{optimizer} object.
 }

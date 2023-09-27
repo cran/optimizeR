@@ -1,12 +1,24 @@
-# optimizeR 0.3.2
+# 0.3.3
+
+* Removed package start-up message.
+
+* Added the `.direction` argument to `define_optimizer()` to specify whether the optimizer minimizes or maximizes.
+
+* Added a dot before the argument names for `define_optimizer()` to avoid clashes with the `...` argument.
+
+* Removed dependency on `{glue}`.
+
+* Using `TestFunctions::TF_ackley` instead of own implementation of Ackley function (for the validation).
+
+# 0.3.2
 
 * Just added package logo and created package website (https://loelschlaeger.de/optimizeR) with the [{pkgdown}](https://pkgdown.r-lib.org/) package. No code changes.
 
-# optimizeR 0.3.1
+# 0.3.1
 
 * In `define_optimizer()`, now `validate = FALSE` by default.
 
-# optimizeR 0.3.0
+# 0.3.0
 
 * Function `set_optimizer()` was renamed to `define_optimizer()`.
 
@@ -20,8 +32,7 @@
   * `out_ign` -> `output_ignore`
   * `test_par` -> `validation_settings`
   
-* Elements for input `validation_settings` have been simplified, please see
-the documentation of `define_optimizer()`.
+* Elements for input `validation_settings` have been simplified, please see the documentation of `define_optimizer()`.
 
 * Elements in the output of `apply_optimizer()` were renamed for clarity:
 
@@ -29,10 +40,9 @@ the documentation of `define_optimizer()`.
   * `z` -> `parameter`
   * `time` -> `seconds` (now just a `numeric`) 
   
-* Element `initial` (the starting parameter vector) was added to the output
-of `apply_optimizer()`.
+* Element `initial` (the starting parameter vector) was added to the output of `apply_optimizer()`.
 
-# optimizeR 0.2.0
+# 0.2.0
 
 * Some functions were renamed:
 
@@ -44,6 +54,6 @@ of `apply_optimizer()`.
 
 * Function `try_silent_timed()` was removed.
 
-# optimizeR 0.1.0
+# 0.1.0
 
-* Initial version.
+* Initial CRAN release.
