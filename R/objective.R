@@ -89,6 +89,7 @@ Objective <- R6::R6Class(
     #' Invisibly the \code{Objective} object.
     set_argument = function(..., overwrite = TRUE, verbose = self$verbose) {
       checkmate::assert_flag(overwrite)
+      checkmate::assert_flag(verbose)
       arguments <- list(...)
       checkmate::check_names(arguments, type = "strict")
       argument_names <- names(arguments)
@@ -119,9 +120,10 @@ Objective <- R6::R6Class(
     #' Get a fixed function argument.
     #' @return
     #' The argument value.
-    get_argument = function(argument_name) {
-      private$.check_argument_specified(argument_name)
-      if (self$verbose) {
+    get_argument = function(argument_name, verbose = self$verbose) {
+      private$.check_argument_specified(argument_name, verbose = verbose)
+      checkmate::assert_flag(verbose)
+      if (verbose) {
         cli::cli_alert("Returning argument {.val {argument_name}}.")
       }
       private$.arguments[[argument_name]]
@@ -131,9 +133,10 @@ Objective <- R6::R6Class(
     #' Remove a fixed function argument.
     #' @return
     #' Invisibly the \code{Objective} object.
-    remove_argument = function(argument_name) {
-      private$.check_argument_specified(argument_name)
-      if (self$verbose) {
+    remove_argument = function(argument_name, verbose = self$verbose) {
+      private$.check_argument_specified(argument_name, verbose = verbose)
+      checkmate::assert_flag(verbose)
+      if (verbose) {
         cli::cli_alert("Removing argument {.val {argument_name}}.")
       }
       private$.arguments[[argument_name]] <- NULL
@@ -223,6 +226,19 @@ Objective <- R6::R6Class(
       } else {
         checkmate::assert_string(value)
         private$.objective_name <- value
+      }
+    },
+
+    #' @field fixed_arguments
+    #' A \code{character}, the names of the fixed arguments (if any).
+    fixed_arguments = function(value) {
+      if (missing(value)) {
+        names(private$.arguments)
+      } else {
+        cli::cli_abort(
+          "Field {.var fixed_arguments} is read-only.",
+          call = NULL
+        )
       }
     },
 

@@ -63,7 +63,7 @@ test_that("construct optimizer works", {
 test_that("optimizier validation works", {
   expect_error(
     define_optimizer(
-      .optimizer = function(fn, x) stop("error"),
+      .optimizer = function(fn, x, ...) stop("error"),
       .objective = "fn",
       .initial = "x",
       .value = "fmin",
@@ -87,7 +87,7 @@ test_that("optimizier validation works", {
   )
   expect_warning(
     define_optimizer(
-      .optimizer = function(f, p) Sys.sleep(10),
+      .optimizer = function(f, p, ...) Sys.sleep(10),
       .objective = "f",
       .initial = "p",
       .value = "minimum",
@@ -102,7 +102,7 @@ test_that("optimizier validation works", {
   )
   expect_error(
     define_optimizer(
-      .optimizer = function(f, p) {
+      .optimizer = function(f, p, ...) {
         return(p)
       },
       .objective = "f",
@@ -128,7 +128,7 @@ test_that("optimizier validation works", {
   )
   expect_error(
     define_optimizer(
-      .optimizer = function(f, p) list("minimum" = "not_a_numeric"),
+      .optimizer = function(f, p, ...) list("minimum" = "not_a_numeric"),
       .objective = "f",
       .initial = "p",
       .value = "minimum",
@@ -152,7 +152,7 @@ test_that("optimizier validation works", {
   )
   expect_error(
     define_optimizer(
-      .optimizer = function(f, p) {
+      .optimizer = function(f, p, ...) {
         list("minimum" = 0, "estimate" = "not_a_numeric")
       },
       .objective = "f",
@@ -168,7 +168,7 @@ test_that("optimizier validation works", {
 
 test_that("unnamed optimizer can be specified", {
   opt <- define_optimizer(
-    .optimizer = function(f, p) {
+    .optimizer = function(f, p, ...) {
       list("minimum" = 0, "parameter" = p)
     },
     .objective = "f",
@@ -200,4 +200,17 @@ test_that("optimization works", {
   expect_type(out, "list")
   expect_type(out$value, "double")
   expect_type(out$parameter, "double")
+})
+
+test_that("old way of constructing optimizer is equivalent to new way", {
+  expect_true(
+    all.equal(
+      old <- optimizeR::optimizer_optim(
+        lower = -5, upper = 5, method = "L-BFGS-B"
+      ),
+      new <- optimizeR::Optimizer$new(
+        which = "stats::optim", lower = -5, upper = 5, method = "L-BFGS-B"
+      )
+    )
+  )
 })
