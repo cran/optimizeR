@@ -1,4 +1,8 @@
-# optimizeR development
+# optimizeR 1.0.4
+
+* Fixed bug and added test cases when having fixed arguments that are `NULL`.
+
+# optimizeR 1.0.3
 
 * Fixed bug in creating error message in case of a time out.
 
@@ -8,7 +12,7 @@
 
 * Added field `fixed_arguments` to `Objective` object which returns the names of the fixed arguments.
 
-* Fixed a bug in proper backwards compatibility.
+* Fixed bug in proper backwards compatibility.
 
 # optimizeR 1.0.2
 
@@ -20,7 +24,7 @@
 
 * Fixed wrong values for `"out_value"` and `"out_parameter"` in the optimizer dictionary entry for `stats::optim`.
 
-# verion 1.0.0
+# optimizeR 1.0.0
 
 * Instead of using S3 classes, we treat optimizers as R6 objects now.
 
