@@ -1,12 +1,12 @@
-022aad37527915629a8d9df2e5d4acd9 *DESCRIPTION
-ad29389571274f905a9d919d8f36cf92 *NAMESPACE
-8366bad1e8e33755e0f9405019514bce *NEWS.md
+1c375a8bca9065b90891fbd0f11a2a7d *DESCRIPTION
+9741324e2d982cc335783918addb9b22 *NAMESPACE
+683369b0bdc999a0cbe9bd9702e4a289 *NEWS.md
 8078fe3d6c2f7a3dfdbeea1560fd9b24 *R/backward_compatibility.R
 22a5f343168e8513939df136af2cd39b *R/debug.R
 24dc4770ed5ad9a16f49a87538eb2a59 *R/objective.R
-c749be32c90c36dae5463e367b62c771 *R/optimizeR-package.R
+efb77b3997af7f9716a2fb4cf6414bd9 *R/optimizeR-package.R
 943b90f41f588ed2faf7f6919fbdadf0 *R/optimizer.R
-76903d02fb01080bbac56a6cd4f769d8 *R/optimizer_dictionary.R
+6eab3c5335c83d7419cc4a42069bcf21 *R/optimizer_dictionary.R
 da1746bcbb541b4a9fa28b115a6e49ec *README.md
 fd76821a3256701ede67b726254e66e3 *man/Objective.Rd
 019f10de3519d192a18a86777a4cb4f2 *man/Optimizer.Rd
@@ -14,7 +14,6 @@ fd76821a3256701ede67b726254e66e3 *man/Objective.Rd
 57220c2a2e64a491522e9853c7b5968a *man/define_optimizer.Rd
 e403e87a55c02685e52d79b68a14a0ed *man/figures/README-plot-ackley-1.png
 2868c023452f6fc5471dd1daabe97c07 *man/figures/logo.png
-951c2ccf5dac71c84a3b53ad5a18b78f *man/install_optimizer_packages.Rd
 fa26c9ca2326a092834f0653694fd250 *man/new_optimizer.Rd
 f98d242202b0d7348d5b711d86147bbc *man/optimizeR-package.Rd
 8d373cbf2f7866d2b4f008f42b787a91 *man/optimizer_dictionary.Rd
