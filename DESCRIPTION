@@ -1,6 +1,6 @@
 Package: optimizeR
 Title: Unified Framework for Numerical Optimizers
-Version: 1.0.5
+Version: 1.1.0
 Authors@R: c(
     person("Lennart", "Oelschl\u00e4ger", 
            email = "oelschlaeger.lennart@gmail.com", 
@@ -27,10 +27,10 @@ Depends: R (>= 4.0.0)
 Imports: checkmate, cli, lbfgsb3c, oeli (>= 0.4.1), R6, stats,
         TestFunctions, ucminf, utils
 NeedsCompilation: no
-Packaged: 2024-02-27 08:33:07 UTC; Oelschlaeger
+Packaged: 2024-05-27 10:17:51 UTC; Lennart Oelschläger
 Author: Lennart Oelschläger [aut, cre]
     (<https://orcid.org/0000-0001-5421-9313>),
   Marius Ötting [ctb] (<https://orcid.org/0000-0002-9373-0365>)
 Maintainer: Lennart Oelschläger <oelschlaeger.lennart@gmail.com>
 Repository: CRAN
-Date/Publication: 2024-02-28 18:20:02 UTC
+Date/Publication: 2024-05-27 12:20:17 UTC

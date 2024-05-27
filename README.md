@@ -93,7 +93,7 @@ define an objective object which we later can pass to the optimizers:
 
 ``` r
 objective <- Objective$new(
-  objective = f,         # f is our objective function
+  f = f,                 # f is our objective function
   target = c("x", "y"),  # x and y are the target arguments
   npar = c(1, 1),        # the target arguments have both a length of 1
   "a" = 20,              
@@ -124,10 +124,6 @@ optimizer_dictionary
 #> - stats::optim
 #> - ucminf::ucminf
 ```
-
-Optimizers that are implemented in packages which are not installed yet
-are only shown here after you install the required packages (for
-instance using the convenience function `install_optimizer_packages()`).
 
 But in fact any optimizer that is not contained in the dictionary can be
 put into the `{optimizeR}` framework by setting `which = "custom"`
@@ -189,7 +185,7 @@ nlm$maximize(objective = objective, initial = c(3, 3))
 #> [1] 1.974451 1.974451
 #> 
 #> $seconds
-#> [1] 0.007139921
+#> [1] 0.01002908
 #> 
 #> $initial
 #> [1] 3 3
@@ -198,7 +194,7 @@ nlm$maximize(objective = objective, initial = c(3, 3))
 #> [1] FALSE
 #> 
 #> $gradient
-#> [1] 5.577962e-08 5.577962e-08
+#> [1] 5.757896e-08 5.757896e-08
 #> 
 #> $code
 #> [1] 1
@@ -216,7 +212,7 @@ nelder_mead$maximize(objective = objective, initial = c(3, 3))
 #> [1] 0 0
 #> 
 #> $seconds
-#> [1] 0.003467083
+#> [1] 0.005402327
 #> 
 #> $initial
 #> [1] 3 3
@@ -226,9 +222,6 @@ nelder_mead$maximize(objective = objective, initial = c(3, 3))
 #> 
 #> $count
 #> [1] 105
-#> 
-#> $convergence
-#> [1] 0
 #> 
 #> $info
 #> $info$solver
@@ -293,7 +286,8 @@ GitHub](https://github.com/loelschlaeger/optimizeR/issues/new/choose).
 
 ## References
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
 
 <div id="ref-optimx" class="csl-entry">
 
