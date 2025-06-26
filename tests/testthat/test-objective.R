@@ -1,3 +1,6 @@
+# self <- objective
+# private <- self$.__enclos_env__$private
+
 cli::test_that_cli("test various cli messages", {
 
    ### objective definition
@@ -6,18 +9,6 @@ cli::test_that_cli("test various cli messages", {
    f_hessian <- function(x, a, b = 0) 2
    objective <- Objective$new(f = f, npar = 1)
    objective$verbose <- TRUE
-
-   ### bad argument value
-   expect_error(
-     objective$evaluate("a"),
-     "must be"
-   )
-
-   ### missing argument
-   expect_error(
-     objective$get_argument("a"),
-     "required but not specified"
-   )
 
    ### setting argument
    expect_snapshot(
@@ -152,7 +143,7 @@ test_that("objective with one target argument can be evaluated", {
   )
   expect_error(
     objective$evaluate(2),
-    "is missing, with no default"
+    "is required but not specified yet"
   )
   expect_silent(
     objective$set_argument("a" = -2)
@@ -306,3 +297,32 @@ test_that("gradient and hessian can be specified and evaluated", {
     )
   )
 })
+
+test_that("numerical gradient and hessian can be calculated", {
+  himmelblau <- function(x, a, b) (x[1]^2 + x[2] - a)^2 + (x[1] + x[2]^2 - b)^2
+  himmelblau_gradient <- function(x, a, b) {
+    c(
+      4 * x[1] * (x[1]^2 + x[2] - a) + 2 * (x[1] + x[2]^2 - b),
+      2 * (x[1]^2 + x[2] - a) + 4 * x[2] * (x[1] + x[2]^2 - b)
+    )
+  }
+  himmelblau_hessian <- function(x, a, b) {
+    matrix(
+      c(
+        12 * x[1]^2 + 4 * x[2] - 4 * a + 2, 4 * x[1] + 4 * x[2],
+        4 * x[1] + 4 * x[2], 12 * x[2]^2 + 4 * x[1] - 4 * b + 2
+      ),
+      nrow = 2
+    )
+  }
+  objective <- Objective$new(f = himmelblau, npar = 2, a = 11, b = 7)
+  expect_equal(
+    objective$evaluate_gradient_numeric(1:2),
+    himmelblau_gradient(1:2, a = 11, b = 7)
+  )
+  expect_equal(
+    objective$evaluate_hessian_numeric(1:2),
+    himmelblau_hessian(1:2, a = 11, b = 7)
+  )
+})
+

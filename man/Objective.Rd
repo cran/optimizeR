@@ -35,7 +35,7 @@ objective$evaluate(1:5)
 \item{\code{objective_name}}{[\code{character(1)}]\cr
 The label for the objective function.}
 
-\item{\code{fixed_arguments}}{[\code{character()}]\cr
+\item{\code{fixed_arguments}}{[\code{character()}, read-only]\cr
 The name(s) of the fixed argument(s) (if any).}
 
 \item{\code{seconds}}{[\code{numeric(1)}]\cr
@@ -52,16 +52,16 @@ Hide warnings when evaluating the objective function?}
 \item{\code{verbose}}{[\code{logical(1)}]\cr
 Print status messages?}
 
-\item{\code{npar}}{[\code{integer()}]\cr
+\item{\code{npar}}{[\code{integer()}, read-only]\cr
 The length of each target argument.}
 
-\item{\code{target}}{[\code{character()}]\cr
+\item{\code{target}}{[\code{character()}, read-only]\cr
 The argument name(s) that get optimized.}
 
-\item{\code{gradient_specified}}{[\code{logical(1)}]\cr
+\item{\code{gradient_specified}}{[\code{logical(1)}, read-only]\cr
 Whether a gradient function has been specified via \verb{$set_gradient()}.}
 
-\item{\code{hessian_specified}}{[\code{logical(1)}]\cr
+\item{\code{hessian_specified}}{[\code{logical(1)}, read-only]\cr
 Whether a Hessian function has been specified via \verb{$set_hessian()}.}
 }
 \if{html}{\out{</div>}}
@@ -77,7 +77,9 @@ Whether a Hessian function has been specified via \verb{$set_hessian()}.}
 \item \href{#method-Objective-set_hessian}{\code{Objective$set_hessian()}}
 \item \href{#method-Objective-evaluate}{\code{Objective$evaluate()}}
 \item \href{#method-Objective-evaluate_gradient}{\code{Objective$evaluate_gradient()}}
+\item \href{#method-Objective-evaluate_gradient_numeric}{\code{Objective$evaluate_gradient_numeric()}}
 \item \href{#method-Objective-evaluate_hessian}{\code{Objective$evaluate_hessian()}}
+\item \href{#method-Objective-evaluate_hessian_numeric}{\code{Objective$evaluate_hessian_numeric()}}
 \item \href{#method-Objective-print}{\code{Objective$print()}}
 \item \href{#method-Objective-clone}{\code{Objective$clone()}}
 }
@@ -288,8 +290,10 @@ Evaluate the objective function.
   .negate = FALSE,
   .gradient_as_attribute = FALSE,
   .gradient_attribute_name = "gradient",
+  .gradient_numeric = FALSE,
   .hessian_as_attribute = FALSE,
   .hessian_attribute_name = "hessian",
+  .hessian_numeric = FALSE,
   ...
 )}\if{html}{\out{</div>}}
 }
@@ -298,36 +302,46 @@ Evaluate the objective function.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{.at}}{[\code{numeric()}]\cr
-The values for the target argument(s), written in a single vector. (
+The values for the target argument(s), written in a single vector.
 
 Must be of length \code{sum(self$npar)}.}
 
 \item{\code{.negate}}{[\code{logical(1)}]\cr
 Negate the function return value?}
 
-\item{\code{.gradient_as_attribute}}{[`logical(1)]\cr
+\item{\code{.gradient_as_attribute}}{[\code{logical(1)}]\cr
 Add the value of the gradient function as an attribute to the output?
 
 The attribute name is defined via the \code{.gradient_attribute_name}
 argument.
 
-Ignored if \verb{$gradient_specified} is \code{FALSE}.}
+Ignored if \verb{$gradient_specified} and \code{.gradient_numeric} are \code{FALSE}.}
 
-\item{\code{.gradient_attribute_name}}{[\verb{character(1)\]\\cr Only relevant if }.gradient_as_attribute = TRUE`.
+\item{\code{.gradient_attribute_name}}{[\code{character(1)}]\cr
+Only relevant if \code{.gradient_as_attribute = TRUE}.
 
 In that case, the attribute name for the gradient (if available).}
 
-\item{\code{.hessian_as_attribute}}{[`logical(1)]\cr
+\item{\code{.gradient_numeric}}{[\code{logical(1)}]\cr
+Calculate the gradient via the numerical approximation
+\code{\link[numDeriv]{grad}}?}
+
+\item{\code{.hessian_as_attribute}}{[\code{logical(1)}]\cr
 Add the value of the Hessian function as an attribute to the output?
 
 The attribute name is defined via the \code{.hessian_attribute_name}
 argument.
 
-Ignored if \verb{$hessian_specified} is \code{FALSE}.}
+Ignored if \verb{$hessian_specified} and \code{hessian_numeric} are \code{FALSE}.}
 
-\item{\code{.hessian_attribute_name}}{[\verb{character(1)\]\\cr Only relevant if }.hessian_as_attribute = TRUE`.
+\item{\code{.hessian_attribute_name}}{[\code{character(1)}]\cr
+Only relevant if \code{.hessian_as_attribute = TRUE}.
 
 In that case, the attribute name for the Hessian (if available).}
+
+\item{\code{.hessian_numeric}}{[\code{logical(1)}]\cr
+Calculate the Hessian via the numerical approximation
+\code{\link[numDeriv]{hessian}}?}
 
 \item{\code{...}}{Optionally additional function arguments that are fixed during the
 optimization.}
@@ -348,7 +362,33 @@ Evaluate the gradient function.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{.at}}{[\code{numeric()}]\cr
-The values for the target argument(s), written in a single vector. (
+The values for the target argument(s), written in a single vector.
+
+Must be of length \code{sum(self$npar)}.}
+
+\item{\code{.negate}}{[\code{logical(1)}]\cr
+Negate the function return value?}
+
+\item{\code{...}}{Optionally additional function arguments that are fixed during the
+optimization.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Objective-evaluate_gradient_numeric"></a>}}
+\if{latex}{\out{\hypertarget{method-Objective-evaluate_gradient_numeric}{}}}
+\subsection{Method \code{evaluate_gradient_numeric()}}{
+Evaluate the numerical gradient \code{\link[numDeriv]{grad}}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Objective$evaluate_gradient_numeric(.at, .negate = FALSE, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{.at}}{[\code{numeric()}]\cr
+The values for the target argument(s), written in a single vector.
 
 Must be of length \code{sum(self$npar)}.}
 
@@ -374,7 +414,33 @@ Evaluate the Hessian function.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{.at}}{[\code{numeric()}]\cr
-The values for the target argument(s), written in a single vector. (
+The values for the target argument(s), written in a single vector.
+
+Must be of length \code{sum(self$npar)}.}
+
+\item{\code{.negate}}{[\code{logical(1)}]\cr
+Negate the function return value?}
+
+\item{\code{...}}{Optionally additional function arguments that are fixed during the
+optimization.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Objective-evaluate_hessian_numeric"></a>}}
+\if{latex}{\out{\hypertarget{method-Objective-evaluate_hessian_numeric}{}}}
+\subsection{Method \code{evaluate_hessian_numeric()}}{
+Evaluate the numerical Hessian \code{\link[numDeriv]{hessian}}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Objective$evaluate_hessian_numeric(.at, .negate = FALSE, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{.at}}{[\code{numeric()}]\cr
+The values for the target argument(s), written in a single vector.
 
 Must be of length \code{sum(self$npar)}.}
 
